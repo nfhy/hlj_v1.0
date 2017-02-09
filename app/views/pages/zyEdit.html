@@ -9,11 +9,12 @@
             <!-- 占位 -->
         </div>
     </div>
-    <div class="panel panel-primary"  ng-repeat="wish in zyEditCtrl.realWishes" ng-controller="collegeSelectController as csCtrl">
+    <div  ng-repeat="wish in zyEditCtrl.realWishes">
+    <div class="panel panel-primary" ng-controller="collegeSelectController as csCtrl">
         <div class="panel-heading">
             <h4>第{{wish[0]}}志愿</h4>
         </div>
-        <table class="table">
+        <table class="table" >
             <tr>
                 <td width="15%"><h5>院校{{csCtrl.collegesForSelect.length}}</h5></td>
                 <td width="30%">
@@ -22,6 +23,9 @@
                         <ui-select-choices repeat="college in csCtrl.collegesForSelect | propsFilter: {name: $select.search}">
                             <div ng-bind-html="(college.collegeCode)+college.collegeName | highlight: $select.search"></div>
                         </ui-select-choices>
+                        <ui-select-no-choice>
+                            没有找到院校
+                        </ui-select-no-choice>
                     </ui-select>
                 </td>
                 <td width="60%">
@@ -40,42 +44,10 @@
                 </td>
             </tr>
         </table>
-        <!--
-        <div class="panel-body form-horizontal">
-            <div class="form-group">
-                <div class="col-md-1 col-sm-1">
-                    院校
-                </div>
-                <div class="col-md-9 col-sm-9">
-                    <ui-select ng-model="wish[1]" theme="bootstrap" >
-                        <ui-select-match placeholder="选择院校">{{$select.selected.name}}</ui-select-match>
-                        <ui-select-choices repeat="college in zyEditCtrl.colleges | propsFilter: {name: $select.search}">
-                            <div ng-bind-html="(college.code)+college.name | highlight: $select.search"></div>
-                        </ui-select-choices>
-                    </ui-select>
-                </div>
-            </div>
-
-            <div class="form-group" ng-repeat="majorCode in wish[2] track by $index">
-                <div class="col-md-2 col-sm-2">
-                    <h4>第{{$index}}专业</h4>
-                </div>
-                <div class="col-md-1 col-sm-1">
-
-                </div>
-                <div class="col-md-9 col-sm-9">
-                    <ui-select ng-model="majorCode" theme="bootstrap" >
-                        <ui-select-match placeholder="选择专业">{{$select.selected.name}}</ui-select-match>
-                        <ui-select-choices repeat="major in zyEditCtrl.college.majors | propsFilter: {name: $select.search}">
-                            <div ng-bind-html="(major.code)+major.name | highlight: $select.search"></div>
-                        </ui-select-choices>
-                    </ui-select>
-                </div>
-            </div>
-            -->
         </div>
         <div class="panel-footer">
             <!-- 占位 -->
         </div>
+    </div>
     </div>
 </div>
