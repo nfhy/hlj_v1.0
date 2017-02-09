@@ -1,0 +1,42 @@
+<div ng-controller="welcomeController as welCtrl" class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">
+                {{welCtrl.welcomeInfo}}
+                <div class="pull-right" ng-class="welCtrl.postEndDate?'text-danger':'text-success'">{{welCtrl.conterDownText}}</div>
+            </div>
+        </div>
+        <table class="table table-bordered table-hover bg-white">
+            <tr class="bg-gray-darker" style="font-weight: bold">
+                <td style="width:35%">毕业学校</td>
+                <td style="width:20%">考生类别</td>
+                <td style="width:20%">身份证后六位</td>
+            </tr>
+            <tr>
+                <td >哈尔滨某某中学</td>
+                <td >普通文史/普通理工/艺术文/体育理</td>
+                <td >123456</td>
+            </tr>
+        </table>
+        <div class="panel-footer">
+            <!-- 占位 -->
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <table class="table table-bordered table-hover table-striped bg-white">
+            <tr class="bg-gray-darker" style="font-weight: bold">
+                <td style="width:35%">批次</td>
+                <td style="width:20%">状态</td>
+                <td style="width:20%">操作</td>
+            </tr>
+            <tr ng-repeat="batch in welCtrl.batchs">
+                <td >{{batch.name}}</td>
+                <td ><span ng-class="batch.dirty?'text-success':'text-danger'">{{batch.dirty?'已填报':'未填报'}}</span></td>
+                <td >
+                    <button ng-if="!welCtrl.postEndDate" ng-click="welCtrl.editWishes(batch)" class="btn btn-success btn-xs mr ml">填报</button>
+                    <button class="btn btn-warning btn-xs mr ml">查看</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

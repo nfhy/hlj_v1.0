@@ -1,0 +1,14 @@
+<div ng-controller="noticesController as noticeCtrl" class="container-fluid" >
+    <div class="panel panel-default">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped bg-white">
+                <tr class="bg-gray-darker" style="font-weight: bold">
+                    <td>消息列表</td>
+                </tr>
+                <tr ng-repeat="notice in noticeCtrl.notices">
+                    <td><a href="{{notice.url}}" target="_blank" class="text-gray-darker">{{notice.title}}</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

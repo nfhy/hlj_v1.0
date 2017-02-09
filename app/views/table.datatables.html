@@ -1,0 +1,63 @@
+<div class="app-view-header">Angular Datatables</div>
+<div class="row">
+   <div class="col-md-3">
+      <h4>Zero configuration</h4>
+      <p>The angular-datatables provides a datatables directive you can add to your &lt;table&ht;:</p>
+   </div>
+   <div class="col-md-9">
+      <table datatable="" class="row-border hover">
+         <thead>
+            <tr>
+               <th>ID</th>
+               <th>First name</th>
+               <th>Last name</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr>
+               <td>1</td>
+               <td>Foo</td>
+               <td>Bar</td>
+            </tr>
+            <tr>
+               <td>123</td>
+               <td>Someone</td>
+               <td>Youknow</td>
+            </tr>
+            <tr>
+               <td>987</td>
+               <td>Iamout</td>
+               <td>Ofinspiration</td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+</div>
+<br/>
+<br/>
+<div class="row">
+   <div class="col-md-3">
+      <h4>The Angular Way</h4>
+      <p>You can construct your table the "angular" way, eg using the directive ng-repeat on tr tag. All you need to do is to add the directive datatable with the value ng on your table in order to make it rendered with DataTables.</p>
+   </div>
+   <div class="col-md-9">
+      <div ng-controller="DataTablesController as dt">
+         <table datatable="ng" class="row-border hover">
+            <thead>
+               <tr>
+                  <th>ID</th>
+                  <th>FirstName</th>
+                  <th>LastName</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr ng-repeat="person in dt.persons">
+                  <td>{{ person.id }}</td>
+                  <td>{{ person.firstName }}</td>
+                  <td>{{ person.lastName }}</td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+</div>

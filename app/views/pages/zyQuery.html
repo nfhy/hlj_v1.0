@@ -1,0 +1,185 @@
+<div ng-controller="zyQueryController as zyCtrl" class="container-fluid" >
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>选择查询条件
+                <span class="pull-right pot" ng-click="zyCtrl.q_up=!zyCtrl.q_up">
+                    <em class="fa pull-right text-gray-darker" ng-class="zyCtrl.q_up?'fa-chevron-up':'fa-chevron-down'"></em>
+                    {{!zyCtrl.q_up?'展开':'收起'}}
+                </span>
+            </h4>
+        </div>
+        <div class="panel-body form-horizontal"  ng-show="zyCtrl.q_up">
+            <div class="form-group">
+                <div class="col-md-4 col-sm-4">
+                    省份
+                    <ui-select ng-model="zyCtrl.q_sf" theme="bootstrap" >
+                        <ui-select-match placeholder="选择省份">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="sf in zyCtrl.provinces | propsFilter: {name: $select.search}">
+                            <div ng-bind-html="sf.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    批次
+                    <ui-select ng-model="zyCtrl.q_batch" theme="bootstrap" >
+                        <ui-select-match placeholder="选择批次">{{$select.selected.batchName}}</ui-select-match>
+                        <ui-select-choices repeat="batch in zyCtrl.batchs | propsFilter: {batchName: $select.search}">
+                            <div ng-bind-html="batch.batchName | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    科类
+                    <ui-select ng-model="zyCtrl.q_kl" theme="bootstrap" >
+                        <ui-select-match placeholder="选择科类">{{$select.selected.klmc}}</ui-select-match>
+                        <ui-select-choices repeat="kl in zyCtrl.kls | propsFilter: {klmc: $select.search}">
+                            <div ng-bind-html="kl.klmc | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4 col-sm-4">
+                    院校
+                    <ui-select ng-model="zyCtrl.q_yx" theme="bootstrap" >
+                        <ui-select-match placeholder="选择院校">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="sf in zyCtrl.provinces | propsFilter: {name: $select.search}">
+                            <div ng-bind-html="sf.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    专业
+                    <ui-select ng-model="zyCtrl.q_zy" theme="bootstrap" >
+                        <ui-select-match placeholder="选择专业">{{$select.selected.batchName}}</ui-select-match>
+                        <ui-select-choices repeat="batch in zyCtrl.batchs | propsFilter: {batchName: $select.search}">
+                            <div ng-bind-html="batch.batchName | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <br/>
+                    <button class="btn btn-primary" ng-click="zyCtrl.pollResult()">查询</button>
+                    <button class="btn btn-warning" ng-click="zyCtrl.showFavsList()">收藏列表</button>
+                </div>
+            </div>
+        </div>
+        <!--
+        <table class="table bg-white" >
+            <tr>
+                <td width="5%">省份</td>
+                <td width="28%">
+                    <ui-select ng-model="zyCtrl.q_sf" theme="bootstrap" >
+                        <ui-select-match placeholder="选择省份">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="sf in zyCtrl.provinces | propsFilter: {name: $select.search}">
+                            <div ng-bind-html="sf.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </td>
+                <td width="5%">批次</td>
+                <td width="28%">
+                    <ui-select ng-model="zyCtrl.q_batch" theme="bootstrap" >
+                        <ui-select-match placeholder="选择批次">{{$select.selected.batchName}}</ui-select-match>
+                        <ui-select-choices repeat="batch in zyCtrl.batchs | propsFilter: {batchName: $select.search}">
+                            <div ng-bind-html="batch.batchName | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </td>
+
+                <td width="5%">科类</td>
+                <td width="28%">
+                    <ui-select ng-model="zyCtrl.q_kl" theme="bootstrap" >
+                        <ui-select-match placeholder="选择科类">{{$select.selected.klmc}}</ui-select-match>
+                        <ui-select-choices repeat="kl in zyCtrl.kls | propsFilter: {klmc: $select.search}">
+                            <div ng-bind-html="kl.klmc | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </td>
+            </tr>
+            <tr>
+                <td>院校</td>
+                <td>
+                    <ui-select ng-model="zyCtrl.q_yx" theme="bootstrap" >
+                        <ui-select-match placeholder="选择院校">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="sf in zyCtrl.provinces | propsFilter: {name: $select.search}">
+                            <div ng-bind-html="sf.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </td>
+
+                <td>专业</td>
+                <td>
+                    <ui-select ng-model="zyCtrl.q_zy" theme="bootstrap" >
+                        <ui-select-match placeholder="选择专业">{{$select.selected.batchName}}</ui-select-match>
+                        <ui-select-choices repeat="batch in zyCtrl.batchs | propsFilter: {batchName: $select.search}">
+                            <div ng-bind-html="batch.batchName | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </td>
+                <td width="" colspan="2">
+                    <button class="btn btn-info">查询</button>
+                    <button class="btn btn-warning">收藏列表</button>
+                </td>
+            </tr>
+        </table>
+        -->
+        <div class="panel-footer">
+            <!-- 占位 -->
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="table-responsive" infinite-scroll='zyCtrl.pollResult()' infinite-scroll-disabled='zyCtrl.emptyResult' infinite-scroll-distance='1'>
+            <table class="table table-bordered table-hover table-striped bg-white">
+                <tr class="bg-gray-darker" style="font-weight: bold">
+                    <td>批次</td>
+                    <td>院校</td>
+                    <td>专业</td>
+                    <td>科类</td>
+                    <td>省份</td>
+                    <td>年制</td>
+                    <td>学费</td>
+                    <td width="5%">收藏</td>
+                </tr>
+                <tr ng-repeat="result in zyCtrl.results">
+                    <td>{{result[0]+result[1]}}</td>
+                    <td>{{result[2]+result[3]}}</td>
+                    <td>{{result[4]+result[5]}}</td>
+                    <td>{{result[10]}}</td>
+                    <td>{{result[6]+result[7]}}</td>
+                    <td>{{result[8]}}</td>
+                    <td>{{result[9]}}</td>
+                    <td width="5%"><em class="fa text-danger text-md pot" ng-click="zyCtrl.favo(result)" ng-class="zyCtrl.favs.indexOf('#'+result[12])>=0?'fa-star':'fa-star-o'"></em></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script type="text/ng-template" id="favsList.html">
+        <div class="modal-header">
+            <h3 class="modal-title">收藏列表</h3>
+        </div>
+        <div class="modal-body" >
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped bg-white">
+                    <tr class="bg-gray-darker" style="font-weight: bold">
+                        <td>批次</td>
+                        <td>院校</td>
+                        <td>专业</td>
+                        <td>科类</td>
+                        <td>省份</td>
+                        <td>年制</td>
+                        <td>学费</td>
+                    </tr>
+                    <tr ng-repeat="result in fCtrl.favs_jh">
+                        <td>{{result[0]+result[1]}}</td>
+                        <td>{{result[2]+result[3]}}</td>
+                        <td>{{result[4]+result[5]}}</td>
+                        <td>{{result[10]}}</td>
+                        <td>{{result[6]+result[7]}}</td>
+                        <td>{{result[8]}}</td>
+                        <td>{{result[9]}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </script>
+</div>
