@@ -110,7 +110,7 @@
             var majorNum = vm.batch.majorNum;
             for (var i= 0; i< collegeNum; i++) {
                 vm.realWishes.push(
-                    [i, {}, [{},{},{},{},{},{}], 1]
+                    [i, {}, _.times(majorNum, _.constant({})), 1]
                 )
             }
         }
