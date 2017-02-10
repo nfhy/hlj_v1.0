@@ -2,12 +2,12 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="panel-title">
-                {{welCtrl.welcomeInfo}}
+                <span class="text-danger">{{welCtrl.welcomeInfo}}</span>
                 <div class="pull-right" ng-class="welCtrl.postEndDate?'text-danger':'text-success'">{{welCtrl.conterDownText}}</div>
             </div>
         </div>
-        <table class="table table-bordered table-hover bg-white">
-            <tr class="bg-gray-darker" style="font-weight: bold">
+        <table class="table table-bordered bg-gray-darker">
+            <tr class="bg-danger" style="font-weight: bold">
                 <td style="width:35%">毕业学校</td>
                 <td style="width:20%">考生类别</td>
                 <td style="width:20%">身份证后六位</td>
@@ -23,15 +23,15 @@
         </div>
     </div>
     <div class="panel panel-default">
-        <table class="table table-bordered table-hover table-striped bg-white">
-            <tr class="bg-gray-darker" style="font-weight: bold">
+        <table class="table table-bordered bg-gray-darker">
+            <tr class="bg-danger" style="font-weight: bold">
                 <td style="width:35%">批次</td>
                 <td style="width:20%">状态</td>
                 <td style="width:20%">操作</td>
             </tr>
-            <tr ng-repeat="batch in welCtrl.batchs">
-                <td >{{batch.name}}</td>
-                <td ><span ng-class="batch.dirty?'text-success':'text-danger'">{{batch.dirty?'已填报':'未填报'}}</span></td>
+            <tr ng-repeat="batch in welCtrl.batchs" class="text-amber">
+                <td >{{batch.batchName}}</td>
+                <td ><span ng-class="!batch.dirty?'text-success':'text-amber'">{{batch.dirty?'已填报':'未填报'}}</span></td>
                 <td >
                     <button ng-if="!welCtrl.postEndDate" ng-click="welCtrl.editWishes(batch)" class="btn btn-success btn-xs mr ml">填报</button>
                     <button class="btn btn-warning btn-xs mr ml">查看</button>

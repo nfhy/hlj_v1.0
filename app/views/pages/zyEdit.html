@@ -1,7 +1,7 @@
 <div ng-controller="zyEditController as zyEditCtrl" class="container-fluid" >
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4 class="text-danger">请注意：当前填报{{zyEditCtrl.batch.batchName}}，共可填报{{zyEditCtrl.batch.collegeNum}}个学校，每个学校填报{{zyEditCtrl.batch.majorNum}}个专业
+            <h4 class="text-danger">请注意：您正在填报{{zyEditCtrl.batch.batchName}}，共可填报{{zyEditCtrl.batch.collegeNum}}个学校，每个学校填报{{zyEditCtrl.batch.majorNum}}个专业
             </h4>
         </div>
 
@@ -9,45 +9,85 @@
             <!-- 占位 -->
         </div>
     </div>
+
+    <div class="row text-center" ng-show="zyEditCtrl.isBusy">
+        <span class=" text-danger text-md m"><em class="fa fa-spinner"></em>加载中</span>
+    </div>
     <div  ng-repeat="wish in zyEditCtrl.realWishes">
-    <div class="panel panel-primary" ng-controller="collegeSelectController as csCtrl">
-        <div class="panel-heading">
-            <h4>第{{wish[0]}}志愿</h4>
+        <div class="panel panel-danger" ng-controller="collegeSelectController as csCtrl">
+            <div class="panel-heading">
+                <h4>第{{wish[0]}}志愿</h4>
+            </div>
+            <table class="table bg-gray-darker" >
+
+                <tr>
+                    <td width="15%"><h5>院校</h5></td>
+                    <td width="30%">
+                        <ui-select ng-model="wish[1]" theme="bootstrap"  reset-search-input="false" on-select="csCtrl.collegeChange()">
+                            <ui-select-match placeholder="请输入部分或全部院校名称">{{ $select.selected.collegeCode+'--'+$select.selected.collegeName}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="college in csCtrl.filteredColleges | filter: $select.search"
+                                               refresh="csCtrl.refreshColleges($select.search)" refresh-delay="0">
+                                <div ng-bind-html="college.collegeCode+'--'+college.collegeName | highlight: $select.search"></div>
+                            </ui-select-choices>
+                            <ui-select-no-choice>
+                                没有找到院校
+                            </ui-select-no-choice>
+                        </ui-select>
+                    </td>
+                    <td width="10%">
+                        <span class="text-amber pot" ng-click="csCtrl.clearCollege()"><em class="fa" ng-class="csCtrl.isBusy?'fa-spinner':'fa-reply'"></em>{{csCtrl.isBusy?'':'清空'}}</span>
+                    </td>
+                    <td width="50%">
+                        <div class="text-amber text-md text-center">
+                            {{wish[1]?(wish[1].collegeCode + '--' + wish[1].collegeName) : ''}}
+                        </div>
+                    </td>
+                </tr>
+
+
+                <tr ng-repeat="major in wish[2] track by $index">
+                    <td><h5>第{{$index}}专业</h5></td>
+                    <td>
+                        <ui-select ng-model="wish[2][$index]" theme="bootstrap" ng-disabled="!wish[1]">
+                            <ui-select-match placeholder="选择专业">{{$select.selected.majorName}}</ui-select-match>
+                            <ui-select-choices repeat="major in csCtrl.majorsForSelect">
+                                <div ng-bind-html="major.majorCode + '--' + major.majorName"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </td>
+                    <td width="10%">
+                        <span class="text-amber pot" ng-click="wish[2][$index] = csCtrl.isBusy?wish[2][$index]:undefined"><em class="fa" ng-class="csCtrl.isBusy?'fa-spinner':'fa-reply'"></em>{{csCtrl.isBusy?'':'清空'}}</span>
+                    </td>
+                    <td width="50%">
+                        <div class="text-amber text-md text-center">
+                            {{wish[2][$index]?(wish[2][$index].majorCode+ '--' +wish[2][$index].majorName):''}}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><h5>专业调剂服从</h5></td>
+                    <td>
+                        <label class="radio-inline">
+                            <input ng-model="wish[3]" type="radio" value="1" ng-disabled="!wish[1]"/>服从</label>
+                        <label class="radio-inline">
+                            <input ng-model="wish[3]" type="radio" value="0" ng-disabled="!wish[1]" />不服从</label>
+                    </td>
+                    <td width="10%">
+                        <span class="text-amber pot" ng-click="wish[2][$index] = csCtrl.isBusy?wish[2][$index]:undefined"><em class="fa" ng-class="csCtrl.isBusy?'fa-spinner':'fa-reply'"></em>{{csCtrl.isBusy?'':'清空'}}</span>
+                    </td>
+                    <td width="50%">
+                        &nbsp;
+                    </td>
+                </tr>
+            </table>
         </div>
-        <table class="table" >
-            <tr>
-                <td width="15%"><h5>院校{{csCtrl.collegesForSelect.length}}</h5></td>
-                <td width="30%">
-                    <ui-select ng-model="csCtrl.collegeSelected" theme="bootstrap">
-                        <ui-select-match placeholder="选择院校">{{$select.selected?('('+$select.selected.collegeCode+')'+$select.selected.collegeName):''}}</ui-select-match>
-                        <ui-select-choices repeat="college in csCtrl.collegesForSelect | propsFilter: {name: $select.search}">
-                            <div ng-bind-html="(college.collegeCode)+college.collegeName | highlight: $select.search"></div>
-                        </ui-select-choices>
-                        <ui-select-no-choice>
-                            没有找到院校
-                        </ui-select-no-choice>
-                    </ui-select>
-                </td>
-                <td width="60%">
-                    <span class="text-gray-darker text-md text-center">{{wish[1].collegeCode}}&nbsp;&nbsp;{{wish[1].collegeName}} </span>
-                </td>
-            </tr>
-            <tr  ng-repeat="majorCode in wish[2] track by $index" ng-controller="majorSelectController as msCtrl">
-                <td><h5>第{{$index}}专业</h5></td>
-                <td>
-                    <ui-select ng-model="msCtrl.majorSelected" theme="bootstrap" >
-                        <ui-select-match placeholder="选择专业">{{$select.selected.majorName}}</ui-select-match>
-                        <ui-select-choices repeat="major in msCtrl.majorsForSelect | propsFilter: {name: $select.search}">
-                            <div ng-bind-html="(major.majorCode)+major.majorame | highlight: $select.search"></div>
-                        </ui-select-choices>
-                    </ui-select>
-                </td>
-            </tr>
-        </table>
-        </div>
-        <div class="panel-footer">
+        <div class="panel-footer center">
             <!-- 占位 -->
         </div>
     </div>
+    <div class="row">
+        <button class="btn btn-success btn-lg col-md-6 col-xs-6 col-md-offset-3 col-xs-offset-3" ng-hide="zyEditCtrl.isBusy" ng-click="zyEditCtrl.saveWishes()">提交</button>
     </div>
+</div>
 </div>

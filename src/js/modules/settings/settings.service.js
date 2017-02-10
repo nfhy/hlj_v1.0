@@ -59,9 +59,9 @@
           theme: {//默认主题色，深灰色
             name:          'gray-darker',
             sidebar:       'bg-white',
-            sidebarHeader: 'bg-gray-darker bg-light',
-            brand:         'bg-gray-darker',
-            topbar:        'bg-gray-darker'
+            sidebarHeader: 'bg-danger bg-light',
+            brand:         'bg-danger',
+            topbar:        'bg-danger'
           }
         };      
       }
