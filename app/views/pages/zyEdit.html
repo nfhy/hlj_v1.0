@@ -16,10 +16,9 @@
     <div  ng-repeat="wish in zyEditCtrl.realWishes">
         <div class="panel panel-danger" ng-controller="collegeSelectController as csCtrl">
             <div class="panel-heading">
-                <h4>第{{wish[0]}}志愿</h4>
+                <h4>第{{wish[0]+1}}志愿</h4>
             </div>
             <table class="table bg-gray-darker" >
-
                 <tr>
                     <td width="15%"><h5>院校</h5></td>
                     <td width="30%">
@@ -47,7 +46,7 @@
 
 
                 <tr ng-repeat="major in wish[2] track by $index">
-                    <td><h5>第{{$index}}专业</h5></td>
+                    <td><h5>第{{$index+1}}专业</h5></td>
                     <td>
                         <ui-select ng-model="wish[2][$index]" theme="bootstrap" ng-disabled="!wish[1]">
                             <ui-select-match placeholder="选择专业">{{$select.selected.majorName}}</ui-select-match>
@@ -89,5 +88,17 @@
     <div class="row">
         <button class="btn btn-success btn-lg col-md-6 col-xs-6 col-md-offset-3 col-xs-offset-3" ng-hide="zyEditCtrl.isBusy" ng-click="zyEditCtrl.saveWishes()">提交</button>
     </div>
-</div>
+
+    <script type="text/ng-template" id="zySubmit.html">
+        <div class="modal-header">
+            <h3 class="modal-title">志愿列表</h3>
+        </div>
+        <div class="modal-body" >
+            <div class="list-group" ng-repeat="wish as zysCtrl.realWishes">
+                <li href="#" class="list-group-item list-group-item-danger active">
+                    <h4 class="list-group-item-heading">第{{wish[0]}}志愿</h4>
+                </li>
+            </div>
+        </div>
+    </script>
 </div>

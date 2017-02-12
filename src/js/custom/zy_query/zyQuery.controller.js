@@ -139,13 +139,13 @@
         }
     }
 
+//modalInstanceCtrl
+    angular.module('naut')
+        .controller('favsListCtrl', favsListCtrl);
+    favsListCtrl.$inject = ['$uibModalInstance', 'favs_jh'];
+    function favsListCtrl($uibModalInstance, favs_jh) {
+        var vm = this;
+        vm.favs_jh = favs_jh;
+    }
 })();
 
-//modalInstanceCtrl
-angular.module('naut')
-.controller('favsListCtrl', favsListCtrl);
-favsListCtrl.$inject = ['$uibModalInstance', 'favs_jh'];
-function favsListCtrl($uibModalInstance, favs_jh) {
-    var vm = this;
-    vm.favs_jh = favs_jh;
-}

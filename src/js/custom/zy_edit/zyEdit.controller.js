@@ -7,9 +7,9 @@
     angular.module('naut')
         .controller('zyEditController', zyEditController);
 
-    zyEditController.$inject = ['$stateParams', 'cacheService', '$timeout'];
+    zyEditController.$inject = ['$stateParams', 'cacheService', '$uibModal', '$timeout'];
 
-    function zyEditController($stateParams, cacheService, $timeout) {
+    function zyEditController($stateParams, cacheService, $uibModal, $timeout) {
         var vm = this;
 
         vm.batchCode = $stateParams.batchCode;
@@ -100,6 +100,7 @@
 
         function _saveWishes() {
             console.log(_fromReal2PlainWishes(vm.realWishes));
+            _showZySubmitList();
         }
 
         //将压缩后的考生志愿扩展为页面可用的数据结构
@@ -150,6 +151,32 @@
                 plainWishes.push(plainWish);
             }
             return plainWishes;
+        }
+
+        function _showZySubmitList() {
+            //弹出收藏列表页面
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'zySubmit.html',
+                controller: 'zySubmitCtrl',
+                controllerAs: 'zysCtrl',
+                size: 'lg',
+                resolve: {
+                    realWishes: function () {
+                        return vm.realWishes;
+                    }
+                }
+            });
+        }
+        //modalInstanceCtrl
+        angular.module('naut')
+            .controller('zySubmitCtrl', zySubmitCtrl);
+        zySubmitCtrl.$inject = ['$uibModalInstance', 'realWishes'];
+        function zySubmitCtrl($uibModalInstance, realWishes) {
+            var vm = this;
+            vm.realWishes = realWishes;
         }
 
         //单个院校select的controller
