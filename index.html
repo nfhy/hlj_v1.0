@@ -11,160 +11,70 @@
    <meta name="keywords" content="app, responsive, angular, bootstrap, dashboard, admin">
    <title data-ng-bind="pageTitle()">{{app.titleText}}</title>
    <!-- build:css app/css/application.css-->
-   <link rel="stylesheet" href="app/css/bootstrap.css">
+   <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+   <link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+   <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+   <link href="//cdn.bootcss.com/angular-ui-select/0.20.0/select.min.css" rel="stylesheet">
    <link id="mainstyles" rel="stylesheet" href="app/css/styles.css">
    <!-- endbuild-->
 </head>
 
 <body ng-cloak="" ng-class="{ 'layout-fixed' : app.layout.isFixed, 'layout-boxed' : app.layout.isBoxed, 'layout-dock' : app.layout.isDocked, 'layout-material': app.layout.isMaterial, 'aside-offscreen' : app.sidebar.isOffscreen, 'aside-mini' : app.sidebar.isMini, 'aside-right' : app.sidebar.isRight, 'footer-hidden': app.footer.hidden, 'in-app': !$state.includes('page')}">
    <div data-ui-view="" data-autoscroll="false" ng-controller="CoreController" class="app-container"></div>
-   <!-- Settings 配置按钮 隐藏
-   <div ng-include="'templates/settings.html'" ng-class="{'visible': showSettings}" ng-init="showSettings = false" class="settings-wrapper"></div>
-   <!-- End Settings-->
-   <!-- Layer Morph-->
-   <div class="layer-morph-overlay">
-      <div class="layer-morph-inner bg-info"></div>
-   </div>
-   <div layer-morph-close="" class="layer-morph-close">
-      <em class="icon-cross"></em>
-   </div>
-   <!--
-   <div class="layer-morph-container bg-info">
-      <div class="layer-morph-wrapper">
-         <div id="layer-search" ng-include="'templates/layer-search.html'" class="layer-morph"></div>
-         <div class="layer-morph-footer">Naut</div>
-      </div>
-   </div>
-   -->
-   <!-- End Layer Morph-->
-   <!-- build:vendor app/js/vendor.js-->
-   <script src="vendor/modernizr/modernizr.custom.js"></script>
-   <script src="vendor/jquery/dist/jquery.js"></script>
-   <script src="vendor/angular/angular.js"></script>
-   <script src="vendor/angular-route/angular-route.js"></script>
-   <script src="vendor/angular-cookies/angular-cookies.js"></script>
-   <script src="vendor/angular-animate/angular-animate.js"></script>
-   <script src="vendor/angular-touch/angular-touch.js"></script>
-   <script src="vendor/angular-sanitize/angular-sanitize.js"></script>
-   <script src="vendor/angular-resource/angular-resource.js"></script>
-   <script src="vendor/angular-translate/angular-translate.js"></script>
-   <script src="vendor/ngstorage/ngStorage.js"></script>
-   <script src="vendor/angular-ui-router/release/angular-ui-router.js"></script>
-   <script src="vendor/angular-ui-utils/index.js"></script>
-   <script src="vendor/angular-ui-mask/dist/mask.js"></script>
-   <script src="vendor/angular-ui-event/dist/event.js"></script>
-   <script src="vendor/angular-ui-validate/dist/validate.js"></script>
-   <script src="vendor/angular-ui-indeterminate/dist/indeterminate.js"></script>
-   <script src="vendor/angular-ui-scrollpoint/dist/scrollpoint.js"></script>
-   <script src="vendor/angular-ui-scroll/dist/ui-scroll.js"></script>
-   <script src="vendor/angular-ui-uploader/dist/uploader.js"></script>
-   <script src="vendor/angular-translate-loader-url/angular-translate-loader-url.js"></script>
-   <script src="vendor/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
-   <script src="vendor/angular-translate-storage-local/angular-translate-storage-local.js"></script>
-   <script src="vendor/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
-   <script src="vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-   <script src="vendor/angular-dynamic-locale/dist/tmhDynamicLocale.js"></script>
-   <script src="vendor/oclazyload/dist/ocLazyLoad.js"></script>
-   <script src="vendor/angular-loading-bar/build/loading-bar.js"></script>
-   <!-- endbuild-->
-   <!-- build:js app/js/application.js-->
-   <script src="src/js/app.module.js"></script>
-   <script src="src/js/modules/apps/calendar.controller.js"></script>
-   <script src="src/js/modules/apps/chat.controller.js"></script>
-   <script src="src/js/modules/apps/mailbox.controller.js"></script>
-   <script src="src/js/modules/apps/tasks.controller.js"></script>
-   <script src="src/js/modules/cards/cards.controller.js"></script>
-   <script src="src/js/modules/charts/flot-chart-options.services.js"></script>
-   <script src="src/js/modules/charts/flot-chart.controller.js"></script>
-   <script src="src/js/modules/charts/flot-chart.directive.js"></script>
-   <script src="src/js/modules/charts/pie-charts.controller.js"></script>
-   <script src="src/js/modules/charts/sparklines.directive.js"></script>
-   <script src="src/js/modules/colors/colors.constant.js"></script>
-   <script src="src/js/modules/colors/colors.run.js"></script>
-   <script src="src/js/modules/colors/colors.service.js"></script>
-   <script src="src/js/modules/common/directives/animate-enabled.directive.js"></script>
-   <script src="src/js/modules/common/directives/chained-animation.directive.js"></script>
-   <script src="src/js/modules/common/directives/check-all-table.directive.js"></script>
-   <script src="src/js/modules/common/directives/fullscreen.directive.js"></script>
-   <script src="src/js/modules/common/directives/reset-key.directive.js"></script>
-   <script src="src/js/modules/common/filters/title-case.filter.js"></script>
-   <script src="src/js/modules/common/services/browser-detection.service.js"></script>
-   <script src="src/js/modules/common/services/support.service.js"></script>
-   <script src="src/js/modules/common/services/touch-drag.service.js"></script>
-   <script src="src/js/modules/core/config.js"></script>
-   <script src="src/js/modules/core/constants.js"></script>
-   <script src="src/js/modules/core/core.controller.js"></script>
-   <script src="src/js/modules/core/core.run.js"></script>
-   <script src="src/js/modules/dashboard/dashboard.controller.js"></script>
-   <script src="src/js/modules/forms/file-style.directive.js"></script>
-   <script src="src/js/modules/forms/file-upload.controller.js"></script>
-   <script src="src/js/modules/forms/form-input.controller.js"></script>
-   <script src="src/js/modules/forms/form-validation.controller.js"></script>
-   <script src="src/js/modules/forms/form-xeditable.controller.js"></script>
-   <script src="src/js/modules/forms/image-crop.controller.js"></script>
-   <script src="src/js/modules/forms/slider.controller.js"></script>
-   <script src="src/js/modules/forms/ui-select.controller.js"></script>
-   <script src="src/js/modules/icons/climacon.directive.js"></script>
-   <script src="src/js/modules/layermorph/layer-morph.directive.js"></script>
-   <script src="src/js/modules/layermorph/layer-morph.service.js"></script>
-   <script src="src/js/modules/layout/header-nav.controller.js"></script>
-   <script src="src/js/modules/layout/ui-sidebar.directive.js"></script>
-   <script src="src/js/modules/loadingbar/loadingbar.config.js"></script>
-   <script src="src/js/modules/loadingbar/loadingbar.run.js"></script>
-   <script src="src/js/modules/maps/google-map.controller.js"></script>
-   <script src="src/js/modules/maps/vector-map.controller.js"></script>
-   <script src="src/js/modules/maps/vector-map.directive.js"></script>
-   <script src="src/js/modules/ripple/ripple.directive.js"></script>
-   <script src="src/js/modules/routes/routes.config.js"></script>
-   <script src="src/js/modules/routes/routes.provider.js"></script>
-   <script src="src/js/modules/routes/routes.run.js"></script>
-   <script src="src/js/modules/routes/vendor.constants.js"></script>
-   <script src="src/js/modules/settings/settings.controller.js"></script>
-   <script src="src/js/modules/settings/settings.service.js"></script>
-   <script src="src/js/modules/tables/angular-table.controller.js"></script>
-   <script src="src/js/modules/tables/datatables.controller.js"></script>
-   <script src="src/js/modules/tables/responsive-table.controller.js"></script>
-   <script src="src/js/modules/tables/table-xeditable.controller.js"></script>
-   <script src="src/js/modules/translator/localization.config.js"></script>
-   <script src="src/js/modules/translator/localization.controller.js"></script>
-   <script src="src/js/modules/translator/translator.config.js"></script>
-   <script src="src/js/modules/translator/translator.service.js"></script>
-   <script src="src/js/modules/ui/alerts.controller.js"></script>
-   <script src="src/js/modules/ui/buttons.controller.js"></script>
-   <script src="src/js/modules/ui/carousel.controller.js"></script>
-   <script src="src/js/modules/ui/datepicker.controller.js"></script>
-   <script src="src/js/modules/ui/modal.controller.js"></script>
-   <script src="src/js/modules/ui/nav-tree.controller.js"></script>
-   <script src="src/js/modules/ui/nestable.controller.js"></script>
-   <script src="src/js/modules/ui/nestable.directive.js"></script>
-   <script src="src/js/modules/ui/notification.controller.js"></script>
-   <script src="src/js/modules/ui/pagination.controller.js"></script>
-   <script src="src/js/modules/ui/popover.controller.js"></script>
-   <script src="src/js/modules/ui/portlets.directive.js"></script>
-   <script src="src/js/modules/ui/progress.controller.js"></script>
-   <script src="src/js/modules/ui/rating.controller.js"></script>
-   <script src="src/js/modules/ui/scrollable.directive.js"></script>
-   <script src="src/js/modules/ui/sortable.controller.js"></script>
-   <script src="src/js/modules/ui/sweetalert.controller.js"></script>
-   <script src="src/js/modules/ui/timepicker.controller.js"></script>
-   <script src="src/js/modules/ui/toaster.controller.js"></script>
-   <script src="src/js/modules/ui/tooltip.config.js"></script>
-   <script src="src/js/modules/ui/tooltip.controller.js"></script>
-   <script src="src/js/modules/ui/typeahead.controller.js"></script>
-   <script src="app/js/templates.js"></script>
 
+   <script src="//cdn.bootcss.com/modernizr/2.8.3/modernizr.min.js"></script>
+   <script src="//cdn.bootcss.com/angular.js/1.6.1/angular.min.js"></script>
+   <script src="//cdn.bootcss.com/angular.js/1.6.1/angular-animate.min.js"></script>
+   <script src="//cdn.bootcss.com/angular.js/1.6.1/angular-route.min.js"></script>
+   <script src="//cdn.bootcss.com/angular.js/1.6.1/angular-cookies.min.js"></script>
+   <script src="//cdn.bootcss.com/angular-sanitize/1.6.1/angular-sanitize.min.js"></script>
+   <script src="//cdn.bootcss.com/angular-resource/1.6.1/angular-resource.min.js"></script>
+   <script src="//cdn.bootcss.com/ngStorage/0.3.11/ngStorage.min.js"></script>
+   <script src="//cdn.bootcss.com/angular-ui-router/1.0.0-rc.1/angular-ui-router.min.js"></script>
+   <script src="//cdn.bootcss.com/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+   <script src="//cdn.bootcss.com/oclazyload/1.0.9/modules/ocLazyLoad.core.min.js"></script>
+   <script src="//cdn.bootcss.com/angular-loading-bar/0.9.0/loading-bar.min.js"></script>
+   <script src="//cdn.bootcss.com/angular-ui-select/0.20.0/select.min.js"></script>
    <script src="//cdn.bootcss.com/ngInfiniteScroll/1.3.0/ng-infinite-scroll.min.js"></script>
    <script src="//cdn.bootcss.com/lodash.js/4.17.4/lodash.min.js"></script>
-   <script src="//cdn.bootcss.com/lunr.js/0.7.2/lunr.min.js"></script>
 
-   <script src="src/js/custom/timer/timer.service.js"></script>
-   <script src="src/js/custom/welcome/welcome.controller.js"></script>
-   <script src="src/js/custom/zy_query/zyQuery.controller.js"></script>
-   <script src="src/js/custom/staticData/provinces.js"></script>
-   <script src="src/js/custom/notices/notice.controller.js"></script>
-   <script src="src/js/custom/zy_edit/zyEdit.controller.js"></script>
-   <script src="src/js/custom/localStorage_handler/cache.service.js"></script>
+
+   <script src="js/main.min.js"></script>
    <!-- endbuild-->
+   <!--
+      <script src="app/js/app.module.js"></script>
+      <script src="app/js/modules/colors/colors.constant.js"></script>
+      <script src="app/js/modules/colors/colors.run.js"></script>
+      <script src="app/js/modules/colors/colors.service.js"></script>
+      <script src="app/js/modules/common/services/browser-detection.service.js"></script>
+      <script src="app/js/modules/common/services/support.service.js"></script>
+      <script src="app/js/modules/common/services/touch-drag.service.js"></script>
+      <script src="app/js/modules/core/config.js"></script>
+      <script src="app/js/modules/core/constants.js"></script>
+      <script src="app/js/modules/core/core.controller.js"></script>
+      <script src="app/js/modules/core/core.run.js"></script>
+      <script src="app/js/modules/layout/header-nav.controller.js"></script>
+      <script src="app/js/modules/loadingbar/loadingbar.config.js"></script>
+      <script src="app/js/modules/loadingbar/loadingbar.run.js"></script>
+      <script src="app/js/modules/routes/routes.config.js"></script>
+      <script src="app/js/modules/routes/routes.provider.js"></script>
+      <script src="app/js/modules/routes/routes.run.js"></script>
+      <script src="app/js/modules/routes/vendor.constants.js"></script>
+      <script src="app/js/modules/settings/settings.controller.js"></script>
+      <script src="app/js/modules/settings/settings.service.js"></script>
+
+
+      <script src="app/js/custom/timer/timer.service.js"></script>
+      <script src="app/js/custom/welcome/welcome.controller.js"></script>
+      <script src="app/js/custom/zy_query/zyQuery.controller.js"></script>
+      <script src="app/js/custom/staticData/provinces.js"></script>
+      <script src="app/js/custom/notices/notice.controller.js"></script>
+      <script src="app/js/custom/zy_edit/zyEdit.controller.js"></script>
+      <script src="app/js/custom/zy_edit/zyValidate.service.js"></script>
+      <script src="app/js/custom/zy_edit/zyStatic.service.js"></script>
+      <script src="app/js/custom/login/login.controller.js"></script>
+      <script src="app/js/custom/localStorage_handler/cache.service.js"></script>
+      <!-- endbuild-->
 </body>
 
 </html>
