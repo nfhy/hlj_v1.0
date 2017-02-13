@@ -11,18 +11,18 @@
     </div>
 
     <div class="row text-center" ng-show="zyEditCtrl.isBusy">
-        <span class=" text-danger text-md m"><em class="fa fa-spinner"></em>加载中</span>
+        <span class=" text-danger text-md m"><em class="fa fa-spinner"></em>请稍等</span>
     </div>
-    <div  ng-repeat="wish in zyEditCtrl.realWishes">
+    <div  ng-repeat="wish in zyEditCtrl.realWishes" class=" col-md-12 col-xs-12 col-lg-6">
         <div class="panel panel-danger" ng-controller="collegeSelectController as csCtrl">
-            <div class="panel-heading">
-                <h4>第{{wish[0]+1}}志愿</h4>
-            </div>
             <table class="table bg-gray-darker" >
+                <tr>
+                    <td colspan="4"><h4>第{{wish[0]}}志愿</h4></td>
+                </tr>
                 <tr>
                     <td width="15%"><h5>院校</h5></td>
                     <td width="30%">
-                        <ui-select ng-model="wish[1]" theme="bootstrap"  reset-search-input="false" on-select="csCtrl.collegeChange()">
+                        <ui-select ng-model="wish[1]" theme="bootstrap" ng-disabled="zyEditCtrl.isBusy || zyEditCtrl.noEdit"  reset-search-input="false" on-select="csCtrl.collegeChange()">
                             <ui-select-match placeholder="请输入部分或全部院校名称">{{ $select.selected.collegeCode+'--'+$select.selected.collegeName}}
                             </ui-select-match>
                             <ui-select-choices repeat="college in csCtrl.filteredColleges | filter: $select.search"
@@ -35,11 +35,11 @@
                         </ui-select>
                     </td>
                     <td width="10%">
-                        <span class="text-amber pot" ng-click="csCtrl.clearCollege()"><em class="fa" ng-class="csCtrl.isBusy?'fa-spinner':'fa-reply'"></em>{{csCtrl.isBusy?'':'清空'}}</span>
+                        <span class="text-amber pot" ng-hide="zyEditCtrl.isBusy || zyEditCtrl.noEdit" ng-click="csCtrl.clearCollege()"><em class="fa" ng-class="csCtrl.isBusy?'fa-spinner':'fa-reply'"></em>{{csCtrl.isBusy?'':'清空'}}</span>
                     </td>
                     <td width="50%">
-                        <div class="text-amber text-md text-center">
-                            {{wish[1]?(wish[1].collegeCode + '--' + wish[1].collegeName) : ''}}
+                        <div class="text-amber text-center">
+                            <h5>{{wish[1]?(wish[1].collegeCode + '--' + wish[1].collegeName) : ''}}</h5>
                         </div>
                     </td>
                 </tr>
@@ -48,7 +48,7 @@
                 <tr ng-repeat="major in wish[2] track by $index">
                     <td><h5>第{{$index+1}}专业</h5></td>
                     <td>
-                        <ui-select ng-model="wish[2][$index]" theme="bootstrap" ng-disabled="!wish[1]">
+                        <ui-select ng-model="wish[2][$index]" theme="bootstrap" ng-disabled="zyEditCtrl.isBusy || zyEditCtrl.noEdit||!wish[1]"  ng-disabled="zyEditCtrl.isBusy || zyEditCtrl.noEdit">
                             <ui-select-match placeholder="选择专业">{{$select.selected.majorName}}</ui-select-match>
                             <ui-select-choices repeat="major in csCtrl.majorsForSelect">
                                 <div ng-bind-html="major.majorCode + '--' + major.majorName"></div>
@@ -56,11 +56,11 @@
                         </ui-select>
                     </td>
                     <td width="10%">
-                        <span class="text-amber pot" ng-click="wish[2][$index] = csCtrl.isBusy?wish[2][$index]:undefined"><em class="fa" ng-class="csCtrl.isBusy?'fa-spinner':'fa-reply'"></em>{{csCtrl.isBusy?'':'清空'}}</span>
+                        <span class="text-amber pot"  ng-hide="zyEditCtrl.isBusy || zyEditCtrl.noEdit" ng-click="wish[2][$index] = csCtrl.isBusy?wish[2][$index]:undefined"><em class="fa" ng-class="csCtrl.isBusy?'fa-spinner':'fa-reply'"></em>{{csCtrl.isBusy?'':'清空'}}</span>
                     </td>
                     <td width="50%">
                         <div class="text-amber text-md text-center">
-                            {{wish[2][$index]?(wish[2][$index].majorCode+ '--' +wish[2][$index].majorName):''}}
+                            <h5>{{wish[2][$index]?(wish[2][$index].majorCode+ '--' +wish[2][$index].majorName):''}}</h5>
                         </div>
                     </td>
                 </tr>
@@ -68,12 +68,12 @@
                     <td><h5>专业调剂服从</h5></td>
                     <td>
                         <label class="radio-inline">
-                            <input ng-model="wish[3]" type="radio" value="1" ng-disabled="!wish[1]"/>服从</label>
+                            <input ng-model="wish[3]" type="radio" value="1" ng-disabled="zyEditCtrl.isBusy || zyEditCtrl.noEdit||!wish[1]"/><span ng-class="wish[3]=='1'?'text-bold text-amber':''">服从</span></label>
                         <label class="radio-inline">
-                            <input ng-model="wish[3]" type="radio" value="0" ng-disabled="!wish[1]" />不服从</label>
+                            <input ng-model="wish[3]" type="radio" value="0" ng-disabled="zyEditCtrl.isBusy || zyEditCtrl.noEdit||!wish[1]" /><span ng-class="wish[3]=='0'?'text-bold text-amber':''">不服从</span></label>
                     </td>
                     <td width="10%">
-                        <span class="text-amber pot" ng-click="wish[2][$index] = csCtrl.isBusy?wish[2][$index]:undefined"><em class="fa" ng-class="csCtrl.isBusy?'fa-spinner':'fa-reply'"></em>{{csCtrl.isBusy?'':'清空'}}</span>
+                        <span class="text-amber pot"  ng-hide="zyEditCtrl.isBusy || zyEditCtrl.noEdit" ng-click="wish[3] = csCtrl.isBusy?wish[3]:undefined"><em class="fa" ng-class="csCtrl.isBusy?'fa-spinner':'fa-reply'"></em>{{csCtrl.isBusy?'':'清空'}}</span>
                     </td>
                     <td width="50%">
                         &nbsp;
@@ -86,18 +86,72 @@
         </div>
     </div>
     <div class="row">
-        <button class="btn btn-success btn-lg col-md-6 col-xs-6 col-md-offset-3 col-xs-offset-3" ng-hide="zyEditCtrl.isBusy" ng-click="zyEditCtrl.saveWishes()">提交</button>
+        <button class="btn btn-success btn-lg col-md-6 col-xs-6 col-md-offset-3 col-xs-offset-3 mb" ng-hide="zyEditCtrl.isBusy || zyEditCtrl.noEdit" ng-click="zyEditCtrl.saveWishes()">提交</button>
+        <a ui-sref="app.welcome" class="btn btn-warning btn-lg col-md-6 col-xs-6 col-md-offset-3 col-xs-offset-3 mb" ng-hide="zyEditCtrl.isBusy">返回</a>
     </div>
 
-    <script type="text/ng-template" id="zySubmit.html">
+    <script type="text/ng-template" id="zyValidate.html">
         <div class="modal-header">
             <h3 class="modal-title">志愿列表</h3>
         </div>
-        <div class="modal-body" >
-            <div class="list-group" ng-repeat="wish as zysCtrl.realWishes">
-                <li href="#" class="list-group-item list-group-item-danger active">
-                    <h4 class="list-group-item-heading">第{{wish[0]}}志愿</h4>
+        <!-- 志愿验证不通过，显示错误列表，返回重改 -->
+        <div class="modal-body"  ng-if="!zysCtrl.passValidation">
+            <div class="list-group col-md-4 col-xs-4 col-lg-4" ng-repeat="rwish in zysCtrl.zysWishes">
+                <li class="list-group-item" ng-class="zysCtrl.results[$index].dirty?'list-group-item-danger':'list-group-item-success'">
+                    <h4 class="list-group-item-heading"><em class="fa m" ng-class="zysCtrl.results[$index].dirty?'fa-exclamation-triangle':'fa-check-square'"></em>第{{rwish[0]}}志愿</h4>
+                    <p class="list-group-item-text">{{zysCtrl.results[$index].toString()}}</p>
                 </li>
+                <li class="list-group-item bg-gray-darker text-amber">
+                    <p class="list-group-item-heading">院校</p>
+                    <h4 class="list-group-item-text">{{rwish[1].collegeCode + '--' + rwish[1].collegeName}}</h4>
+                </li>
+                <li class="list-group-item bg-gray-darker text-amber" >
+                    <p class="list-group-item-heading">专业</p>
+                </li>
+                <li class="list-group-item bg-gray-darker text-amber" ng-repeat="rmajor in rwish[2]">
+                    <h4 class="list-group-item-text">{{rmajor.majorCode + '--' + rmajor.majorName}}</h4>
+                </li>
+                <li class="list-group-item bg-gray-darker text-amber" >
+                    <p class="list-group-item-heading">专业调剂</p>
+                </li>
+                <li class="list-group-item bg-gray-darker text-amber">
+                    <h4 class="list-group-item-text">{{rwish[3]==undefined?'未选择':(rwish[3]=='1'?'服从':'不服从')}}</h4>
+                </li>
+            </div>
+            <div class="row">
+                <button class="btn btn-warning col-md-6 col-xs-6 col-md-offset-3 col-xs-offset-3" ng-click="zysCtrl.closeZySubmit()">返回修改</button>
+            </div>
+        </div>
+
+        <!-- 志愿通过验证，点击提交发送给服务器，点击返回修改继续修改 -->
+        <div class="modal-body"  ng-if="zysCtrl.passValidation">
+            <div class="row">
+                <h4>共填报{{zysCtrl.results.totalCollegeNum}}个院校，{{zysCtrl.results.totalMajorNum}}个专业</h4>
+            <div class="list-group col-md-6 col-xs-6 col-lg-6" ng-repeat="rwish in zysCtrl.zysWishes">
+                <li class="list-group-item bg-success" >
+                    <h4 class="list-group-item-heading"><em class="fa fa-check-square m"></em>第{{rwish[0]}}志愿</h4>
+                    <p class="list-group-item-text">共填报{{zysCtrl.results.results[$index]}}个专业</p>
+                </li>
+                <li class="list-group-item bg-gray-darker text-amber">
+                    <p class="list-group-item-heading">院校</p>
+                    <h4 class="list-group-item-text">{{rwish[1].collegeCode + '--' + rwish[1].collegeName}}</h4>
+                </li>
+                <li class="list-group-item bg-gray-darker text-amber" >
+                    <p class="list-group-item-heading">专业</p>
+                </li>
+                <li class="list-group-item bg-gray-darker text-amber" ng-repeat="rmajor in rwish[2]">
+                    <h4 class="list-group-item-text">{{rmajor.majorCode + '--' + rmajor.majorName}}</h4>
+                </li>
+                <li class="list-group-item bg-gray-darker text-amber" >
+                    <p class="list-group-item-heading">专业调剂</p>
+                </li>
+                <li class="list-group-item bg-gray-darker text-amber">
+                    <h4 class="list-group-item-text">{{rwish[3]==undefined?'未选择':(rwish[3]=='1'?'服从':'不服从')}}</h4>
+                </li>
+            </div>
+            <div class="row">
+                <button class="btn btn-success col-md-6 col-xs-6 col-md-offset-3 col-xs-offset-3 mb" ng-click="zysCtrl.confirmZySubmit()">提交</button>
+                <button class="btn btn-warning col-md-6 col-xs-6 col-md-offset-3 col-xs-offset-3 " ng-click="zysCtrl.closeZySubmit()">返回</button>
             </div>
         </div>
     </script>

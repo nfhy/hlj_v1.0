@@ -1,0 +1,34 @@
+<div class="container container-sm animated fadeInDown" ng-controller="loginController as loginCtrl">
+    <div class="center-block mt-xl">
+        <!-- START panel-->
+        <div class="panel bg-danger">
+            <div class="panel-heading">
+                <h4>{{app.titleText}}</h4>
+            </div>
+            <div class="panel-body bg-gray-darker">
+                <p class="pv text-white">考生登录</p>
+                <form role="form" class="mb-lg">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group has-feedback mb">
+                                <input type="text" placeholder="请输入登陆账号" autocomplete="off" class="form-control" />
+                                <span class="fa fa-envelope form-control-feedback text-muted"></span>
+                            </div>
+                            <br/>
+                            <div class="form-group has-feedback">
+                                <input type="password" placeholder="请输入密码" class="form-control" />
+                                <span class="fa fa-lock form-control-feedback text-muted"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <button ng-click="loginCtrl.doLogin()" class="btn btn-block btn-info mb">登录</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+        <!-- END panel-->
+        <div ng-include="'app/views/page.footer.html'" class="p-lg text-center"></div>
+    </div>
+</div>

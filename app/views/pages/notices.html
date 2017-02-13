@@ -1,12 +1,12 @@
 <div ng-controller="noticesController as noticeCtrl" class="container-fluid" >
     <div class="panel panel-default">
         <div class="table-responsive">
-            <table class="table table-bordered table-hover table-striped bg-white">
-                <tr class="bg-gray-darker" style="font-weight: bold">
+            <table class="table table-bordered bg-gray-darker">
+                <tr class="">
                     <td>消息列表</td>
                 </tr>
-                <tr ng-repeat="notice in noticeCtrl.notices">
-                    <td><a href="{{notice.url}}" target="_blank" class="text-gray-darker">{{notice.title}}</a></td>
+                <tr ng-repeat="notice in noticeCtrl.notices" style="">
+                    <td><a href="{{notice.url}}" target="_blank" class="text-white">{{notice.title}}</a><span class="pull-right">{{notice.date}}</span></td>
                 </tr>
             </table>
         </div>
