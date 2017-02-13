@@ -16,6 +16,18 @@ body,button, input, select, textarea,h1 ,h2, h3, h4, h5, h6 { font-family: Micro
 .pot {
   cursor: pointer;
 }
+.bg-gray-darker tr {
+  color: #fff;
+}
+
+.bg-gray-darker tr:first-child {
+  background-color: #f34235 !important;
+}
+
+.text-white {
+  coler: #fff;
+}
+
 /**customed end*/
 
 .glyphicon {
@@ -289,7 +301,7 @@ input[type="number"] {
   position: relative;
   display: block;
   padding: 0 5px;
-  line-height: 70px;
+  line-height: 50px;
   float: none;
   margin: 0px 50px 0px 20px;
   z-index: 1;
